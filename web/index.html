@@ -11,7 +11,7 @@
 
 <body>
     <main>
-        <div class="input-fields">
+        <div class="inputs">
             <label for="input-fields">Choose fields for input</label>
             <select name="inputs" id="input-fields" multiple>
                 <option value="monthly">Monthly salary</option>
@@ -22,34 +22,34 @@
             </select>
         </div>
 
-        <form id="input-form">
-            <div class="field" hidden>
+        <form id="inputs">
+            <div class="field" data-name="monthly" hidden>
                 <label for="monthly">Month Salary</label>
                 <input type="number" name="monthly" id="monthly">
             </div>
 
-            <div class="field" hidden>
+            <div class="field" data-name="daily" hidden>
                 <label for="daily">Daily salary</label>
                 <input type="number" name="daily" id="daily">
             </div>
 
-            <div class="field" hidden>
+            <div class="field" data-name="hourly" hidden>
                 <label for="hourly">Hourly salary</label>
                 <input type="number" name="hourly" id="hourly">
             </div>
 
-            <div class="field" hidden>
+            <div class="field" data-name="dpm" hidden>
                 <label for="dpm">Work days per month</label>
                 <input type="number" name="dpm" id="dpm">
             </div>
 
-            <div class="field" hidden>
+            <div class="field" data-name="hpd" hidden>
                 <label for="hpd">Work hours per day</label>
                 <input type="number" name="hpd" id="hpd">
             </div>
         </form>
 
-        <div class="output-fields">
+        <div class="outputs">
             <label for="output-fields">Choose fields for output</label>
             <select name="outputs" id="output-fields" multiple>
                 <option value="monthly">Monthly salary</option>
@@ -60,7 +60,7 @@
             </select>
         </div>
 
-        <form id="output-form">
+        <form id="outputs">
             <div class="row" hidden>
                 <label>Month Salary</label>
                 <output name="monthly"></output>

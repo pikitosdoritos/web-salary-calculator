@@ -1,11 +1,7 @@
-const form = document.querySelector("form")
+window.onchange = handleFieldSelection
 
-form.onsubmit = calculateDailyRate
-
-function calculateDailyRate(e) {
-    e.preventDefault()
-
-    form.daily.value = form.month.value / form.workdays.value
-
-    if (form.hours.value
+function handleFieldSelection(e) {
+    if (!e.target.matches("select")) return
+    
+    
 }
