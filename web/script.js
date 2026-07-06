@@ -6,4 +6,6 @@ function calculateDailyRate(e) {
     e.preventDefault()
 
     form.daily.value = form.month.value / form.workdays.value
+
+    if (form.hours.value
 }
