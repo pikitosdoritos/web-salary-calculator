@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <form>
+        <div class="input-data">
+            <div class="field">
+                <label for="month-salary">Month Salary</label>
+                <input type="number" name="month" id="month-salary">
+            </div>
+
+            <div class="field">
+                <label for="working-days">Number of work days</label>
+                <input type="number" name="workdays" id="working-days">
+            </div>
+        </div>
+
+        <div class="results">
+            <label>Rate per day</label>
+            <output name="daily"></output>
+        </div>
+
+        <button>Calculate</button>
+    </form>
+</body>
+
+</html>
