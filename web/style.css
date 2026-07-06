@@ -23,7 +23,13 @@ button {
     place-self: center;
 }
 
-label {
+label:not(:has(+output)) {
     display: block;
     margin: 10px 10px;
+}
+
+output {
+    min-width: 200px;
+    display: inline-block;
+    border-bottom: 1px solid black;
 }
