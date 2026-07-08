@@ -61,15 +61,15 @@ const calcMap = {
     hpd: [
         {
             fields: ['hpd'],
-            calc: (hpd) => hpd,
+            calc: (hpd) => hoursToDuration(hpd),
         },
         {
             fields: ['daily', 'hourly'],
-            calc: (daily, hourly) => daily / hourly,
+            calc: (daily, hourly) => hoursToDuration(daily / hourly),
         },
         {
             fields: ['mothly', 'dpm', 'hourly'],
-            calc: (monthly, dpm, hourly) => monthly / dpm / hourly,
+            calc: (monthly, dpm, hourly) => hoursToDuration(monthly / dpm / hourly),
         },
     ],
 }
@@ -101,11 +101,18 @@ function handleSubmit(e) {
                 const values = fields.map(key => inputForm[key].value)
                 const value = calc(...values)
 
-                out.value = value.toFixed(2)
+                out.value = value.toFixed ? value.toFixed(2):value
                 break
             }
         }
 
         out.value ||= "Not enough data!"
     }
+}
+
+function hoursToDuration(hours) {
+    const fullHours = Math.floor(hours)
+    const fullMinutes = Math.floor((hours - fullHours) * 60)
+
+    return fullHours + "h " + fullMinutes + "m" 
 }
