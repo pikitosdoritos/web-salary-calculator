@@ -1,35 +1,80 @@
 window.onchange = handleFieldSelection
 
-const form = document.getElementById('inputs')
+const [inputForm, outputForm] = document.forms
 const calcMap = {
     monthly: [
-        ['monthly'],
-        ['daily', 'dpm'],
-        ['hourly', 'dpm', 'hpd'],
+        {
+            fields: ['monthly'],
+            calc: (monthly) => monthly,
+        },
+        {
+            fields: ['daily', 'dpm'],
+            calc: (daily, dpm) => daily * dpm,
+        },
+        {
+            fields: ['hourly', 'dpm', 'hpd'],
+            calc: (hourly, dpm, hpd) => hourly * hpd * dpm,
+        },
     ],
     daily: [
-        ['daily'],
-        ['monthly', 'dpm'],
-        ['hourly', 'hpd'],
+        {
+            fields: ['daily'],
+            calc: (daily) => daily,
+        },
+        {
+            fields: ['monthly', 'dpm'],
+            calc: (monthly, dpm) => monthly / dpm,
+        },
+        {
+            fields: ['hourly', 'hpd'],
+            calc: (hourly, hpd) => hourly * hpd,
+        },
     ],
     hourly: [
-        ['hourly'],
-        ['daily', "hpd"],
-        ['monthly', 'dpm', 'hpd'],
+        {
+            fields: ['hourly'],
+            calc: (hourly) => hourly,
+        },
+        {
+            fields: ['daily', "hpd"],
+            calc: (daily, hpd) => daily / hpd,
+        },
+        {
+            fields: ['monthly', 'dpm', 'hpd'],
+            calc: (monthly, dpm, hpd) => monthly / dpm / hpd,
+        },
     ],
     dpm: [
-        ['dpm'],
-        ['monthly', 'daily'],
-        ['monthly', 'hourly', 'hpd'],
+        {
+            fields: ['dpm'],
+            calc: (dpm) => dpm,
+        },
+        {
+            fields: ['monthly', 'daily'],
+            calc: (monthly, daily) => monthly / dpm,
+        },
+        {
+            fields: ['monthly', 'hourly', 'hpd'],
+            calc: (monthly, hourly, hpd) => monthly / (hourly * hpd),
+        },
     ],
     hpd: [
-        ['hpd'],
-        ['daily', 'hourly'],
-        ['mothly', 'dpm', 'hourly'],
+        {
+            fields: ['hpd'],
+            calc: (hpd) => hpd,
+        },
+        {
+            fields: ['daily', 'hourly'],
+            calc: (daily, hourly) => daily / hourly,
+        },
+        {
+            fields: ['mothly', 'dpm', 'hourly'],
+            calc: (monthly, dpm, hourly) => monthly / dpm / hourly,
+        },
     ],
 }
 
-form.onsubmit = handleSubmit
+inputForm.onsubmit = handleSubmit
 
 function handleFieldSelection(e) {
     if (!e.target.matches('select')) return
@@ -43,6 +88,22 @@ function handleFieldSelection(e) {
     }
 }
 
-function handleSubmit() {
+function handleSubmit(e) {
+    e.preventDefault()
 
+    const outputFields = outputForm.querySelectorAll(":not([hidden])>output")
+    const inputFields = inputForm.querySelectorAll(":not([hidden])>input")
+    const inputNames = Array.from(inputFields).map(input => input.name)
+
+    for (const out of outputFields) {
+        for (const { fields, calc } of calcMap[out.name]) {
+            if (inputNames.every(name => fields.includes(name))) {
+                const values = fields.map(key => inputForm[key].value)
+                const value = calc(...values)
+
+                out.value = value
+                break
+            }
+        }
+    }
 }
