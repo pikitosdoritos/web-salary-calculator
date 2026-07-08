@@ -101,7 +101,7 @@ function handleSubmit(e) {
                 const values = fields.map(key => inputForm[key].value)
                 const value = calc(...values)
 
-                out.value = value
+                out.value = value.toFixed(2)
                 break
             }
         }
