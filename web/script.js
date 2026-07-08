@@ -97,7 +97,7 @@ function handleSubmit(e) {
 
     for (const out of outputFields) {
         for (const { fields, calc } of calcMap[out.name]) {
-            if (inputNames.every(name => fields.includes(name))) {
+            if (fields.every(name => inputNames.includes(name))) {
                 const values = fields.map(key => inputForm[key].value)
                 const value = calc(...values)
 
@@ -105,5 +105,7 @@ function handleSubmit(e) {
                 break
             }
         }
+
+        out.value ||= "Not enough data!"
     }
 }
